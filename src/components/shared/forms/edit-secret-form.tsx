@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import {
+  SecretOptionAlgorithm,
   secretOptionAlgorithm,
   useSecretStore,
 } from "@/lib/stores/secret.store"
@@ -28,9 +29,14 @@ import {
 } from "@/components/ui/select"
 
 const editSecretFormSchema = z.object({
-  issuer: z.string().trim(),
+  issuer: z.string().trim().min(1, "Issuer can't be empty"),
   label: z.string().trim().optional(),
-  secret: z.string().trim().min(1, "Secret can't be empty"),
+  secret: z
+    .string()
+    .trim()
+    .min(1, "Secret can't be empty")
+    .regex(/^([A-Z2-7=])+$/, "Invalid Secret"),
+
   algorithm: z.enum(secretOptionAlgorithm),
   digits: z.coerce.number(),
   period: z.coerce.number(),
@@ -56,31 +62,10 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
   })
 
   function onSubmit(input: EditSecretFormInput) {
-    addSecret(input)
+    addSecret({
+      ...input,
+    })
     onFinish()
-  }
-
-  function checkURI(value: string) {
-    try {
-      const url = new URL(value)
-      if (url.protocol !== "otpauth:") {
-        throw new Error("Invalid protocol")
-      }
-      const totp = OTPAuthURI.parse(value)
-      const parsed = editSecretFormSchema.parse({
-        issuer: totp.issuer,
-        label: totp.label,
-        secret: totp.secret.base32,
-        algorithm: totp.algorithm,
-        digits: totp.digits,
-        period: 30,
-      })
-      Object.entries(parsed).forEach(([key, value]) => {
-        form.setValue(key as keyof EditSecretFormInput, value)
-      })
-    } catch {
-      // Ignore
-    }
   }
 
   return (
@@ -95,20 +80,35 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
           name="secret"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Secret or URI</FormLabel>
+              <FormLabel>URI/Secret</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  onBlur={(e) => {
-                    checkURI(e.target.value)
-                    field.onBlur()
-                  }}
                   className="font-mono"
+                  onBlur={(e) => {
+                    field.onBlur()
+                    try {
+                      const uri = OTPAuthURI.parse(e.currentTarget.value)
+                      if (uri) {
+                        form.setValue("issuer", uri.issuer)
+                        form.setValue(
+                          "label",
+                          uri.label.replace(`${uri.issuer}:`, "")
+                        )
+                        form.setValue("secret", uri.secret.base32)
+                        form.setValue(
+                          "algorithm",
+                          uri.algorithm as SecretOptionAlgorithm
+                        )
+                        form.setValue("digits", uri.digits)
+                      }
+                    } catch {
+                      //ignore
+                    }
+                  }}
                 />
               </FormControl>
-              <FormDescription>
-                The secret key or the URI of the secret.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}

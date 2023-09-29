@@ -49,7 +49,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </Tooltip>
           </TooltipProvider>
           <AddSecretDialog>
-            <Plus className="h-4 w-4" /> Add Secret
+            <Plus className="h-4 w-4" /> Add
           </AddSecretDialog>
         </div>
       </header>
