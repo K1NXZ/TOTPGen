@@ -4,7 +4,9 @@ import React from "react"
 import { cva } from "class-variance-authority"
 import { motion } from "framer-motion"
 import {
+  Braces,
   ClipboardCheck,
+  KeyRound,
   Link2,
   MoreHorizontal,
   QrCode,
@@ -49,7 +51,7 @@ import { toast } from "@/components/ui/use-toast"
 
 export function SecretCard({ secret }: { secret: Secret }) {
   const secretState = useSecretStore()
-  const { token, seconds, url } = useTotp(secret.options)
+  const { token, seconds, url, secret: totpSecret } = useTotp(secret.options)
   const [qrcodeOpen, setQrcodeOpen] = React.useState(false)
 
   const isLoading = !token || !seconds
@@ -96,6 +98,48 @@ export function SecretCard({ secret }: { secret: Secret }) {
     }
   }
 
+  async function copySecret() {
+    try {
+      if (!secret.options.secret) {
+        return
+      }
+      await navigator.clipboard.writeText(totpSecret)
+      toast({
+        title: "Copied to clipboard",
+        description: "The secret has been copied to your clipboard.",
+        duration: 2000,
+      })
+    } catch (err) {
+      console.error(err)
+      toast({
+        title: "Failed to copy to clipboard",
+        description: "An error occurred while copying the secret to clipboard.",
+        variant: "destructive",
+      })
+    }
+  }
+
+  async function copyJSON() {
+    try {
+      if (!secret.options.secret) {
+        return
+      }
+      await navigator.clipboard.writeText(JSON.stringify(secret.options))
+      toast({
+        title: "Copied to clipboard",
+        description: "The json has been copied to your clipboard.",
+        duration: 2000,
+      })
+    } catch (err) {
+      console.error(err)
+      toast({
+        title: "Failed to copy to clipboard",
+        description: "An error occurred while copying the json to clipboard.",
+        variant: "destructive",
+      })
+    }
+  }
+
   if (isLoading) {
     return <CardSekeleton />
   }
@@ -107,14 +151,14 @@ export function SecretCard({ secret }: { secret: Secret }) {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <Card className="rounded-md">
+        <Card className="h-full rounded-md">
           <CardHeader className="flex flex-row items-start justify-between py-1 pl-4 pr-2.5">
             <div className="flex flex-col py-2">
               <CardTitle className="font-headline text-lg font-semibold tracking-tight">
                 {secret.options.issuer}
               </CardTitle>
               <CardDescription className="text-sm">
-                {secret.options.label}
+                {secret.options.label ? secret.options.label : <>&nbsp;</>}
               </CardDescription>
             </div>
             <DropdownMenu>
@@ -124,19 +168,30 @@ export function SecretCard({ secret }: { secret: Secret }) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                {/* <DropdownMenuItem className="gap-2">
-              <Pencil className="h-4 w-4" /> Edit
-            </DropdownMenuItem> */}
                 <DropdownMenuItem className="gap-2" onSelect={() => copyURI()}>
                   <Link2 className="h-4 w-4" />
                   Copy URI
                 </DropdownMenuItem>
+
                 <DropdownMenuItem
                   className="gap-2"
                   onSelect={() => setQrcodeOpen(true)}
                 >
                   <QrCode className="h-4 w-4" />
                   QRCode
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="gap-2"
+                  onSelect={() => copySecret()}
+                >
+                  <KeyRound className="h-4 w-4" />
+                  Copy Secret
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="gap-2" onSelect={() => copyJSON()}>
+                  <Braces className="h-4 w-4" />
+                  Copy JSON
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem

@@ -46,6 +46,7 @@ export function useTotp(options: SecretOptions) {
     seconds,
     token,
     url: totp.toString(),
+    secret: totp.secret.base32,
     refresh,
   } as const
 }
