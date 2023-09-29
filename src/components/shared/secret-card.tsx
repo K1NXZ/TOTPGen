@@ -1,7 +1,6 @@
 /** @format */
 
 import React from "react"
-import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { cva } from "class-variance-authority"
 import { motion } from "framer-motion"
 import {
