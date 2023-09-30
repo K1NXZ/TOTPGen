@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -18,8 +19,8 @@ export function AddSecretDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent className="max-h-screen shrink-0 px-0">
-        <DialogHeader className="px-4">
+      <DialogContent>
+        <DialogHeader>
           <DialogTitle>Add Secret</DialogTitle>
         </DialogHeader>
         <ScrollArea className="h-full w-full shrink">
@@ -28,7 +29,7 @@ export function AddSecretDialog() {
           </div>
         </ScrollArea>
         <DialogFooter className="shrink-0 px-4">
-          <Button type="submit" form={editSecretFormId}>
+          <Button type="submit" form={editSecretFormId} size="sm">
             Save
           </Button>
         </DialogFooter>
