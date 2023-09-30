@@ -28,7 +28,15 @@ export function AddSecretDialog() {
           </div>
         </ScrollArea>
         <DialogFooter className="shrink-0 px-4">
-          <Button type="submit" form={editSecretFormId} size="sm">
+          <Button
+            variant="ghost"
+            type="button"
+            form={editSecretFormId}
+            onClick={() => setOpen(false)}
+          >
+            Cancel
+          </Button>
+          <Button type="submit" form={editSecretFormId}>
             Save
           </Button>
         </DialogFooter>
