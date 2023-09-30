@@ -2,6 +2,7 @@
 
 import React from "react"
 
+import { useAddSecretDialog } from "@/hooks/useAddSecretDialog"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -19,10 +20,10 @@ import {
 import { ScrollArea } from "../ui/scroll-area"
 
 export function AddSecretDialog({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const { isOpen, setOpen } = useAddSecretDialog()
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="gap-2">{children}</Button>
       </DialogTrigger>
@@ -36,7 +37,7 @@ export function AddSecretDialog({ children }: { children: React.ReactNode }) {
         </DialogHeader>
         <ScrollArea className="h-full w-full shrink">
           <div className="p-4">
-            <EditSecretForm onFinish={() => setIsOpen(false)} />
+            <EditSecretForm onFinish={() => setOpen(false)} />
           </div>
         </ScrollArea>
         <DialogFooter className="shrink-0 px-4">

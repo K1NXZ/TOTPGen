@@ -1,5 +1,6 @@
 /** @format */
 
+import { AddSecretDialogProvider } from "@/contexts/AddSecretDialogContext"
 import { Eye, EyeOff, Plus } from "lucide-react"
 
 import { useSecretStore } from "@/lib/stores/secret.store"
@@ -20,7 +21,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   }))
 
   return (
-    <>
+    <AddSecretDialogProvider>
       <header className="container mx-auto flex items-center justify-between py-4">
         <span className="font-headline text-2xl font-bold tracking-tight">
           {/* onetimecode.app */}
@@ -54,6 +55,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
       <main className="container mx-auto">{children}</main>
-    </>
+    </AddSecretDialogProvider>
   )
 }
