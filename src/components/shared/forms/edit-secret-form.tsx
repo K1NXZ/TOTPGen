@@ -1,5 +1,3 @@
-/** @format */
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { URI as OTPAuthURI } from "otpauth"
 import { useForm } from "react-hook-form"
@@ -108,7 +106,6 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
                   }}
                 />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}

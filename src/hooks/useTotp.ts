@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useCallback } from "react"
 import * as OTPAuth from "otpauth"
 

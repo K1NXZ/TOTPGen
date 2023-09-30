@@ -1,12 +1,8 @@
-/** @format */
-
 import { AnimatePresence, motion } from "framer-motion"
 import { Plus } from "lucide-react"
 
-import { MainLayout } from "./components/layouts/main-layout"
-import { ThemeProvider } from "./components/providers/theme-provider"
-import { SecretCard } from "./components/shared/secret-card"
-import { Button } from "./components/ui/button"
+import { Secret, useSecretStore } from "@/lib/stores/secret.store"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -14,26 +10,33 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./components/ui/card"
-import { Toaster } from "./components/ui/toaster"
-import { useAddSecretDialog } from "./hooks/useAddSecretDialog"
-import { Secret, useSecretStore } from "./lib/stores/secret.store"
+} from "@/components/ui/card"
+import { Toaster } from "@/components/ui/toaster"
+import { MainLayout } from "@/components/layouts/main-layout"
+import {
+  AddSecretDialogProvider,
+  useAddSecretDialog,
+} from "@/components/providers/add-secret-provider"
+import { ThemeProvider } from "@/components/providers/theme-provider"
+import { SecretCard } from "@/components/shared/secret-card"
 
 function App() {
   const secretState = useSecretStore()
 
   return (
     <ThemeProvider defaultTheme="system" storageKey="ui-theme">
-      <MainLayout>
-        <AnimatePresence>
-          {secretState.secrets.length > 0 ? (
-            <SecretsGrid secrets={secretState.secrets} />
-          ) : (
-            <Empty />
-          )}
-        </AnimatePresence>
-      </MainLayout>
-      <Toaster />
+      <AddSecretDialogProvider>
+        <MainLayout>
+          <AnimatePresence>
+            {secretState.secrets.length > 0 ? (
+              <SecretsGrid secrets={secretState.secrets} />
+            ) : (
+              <Empty />
+            )}
+          </AnimatePresence>
+        </MainLayout>
+        <Toaster />
+      </AddSecretDialogProvider>
     </ThemeProvider>
   )
 }
@@ -59,7 +62,7 @@ function Empty() {
       <Card className="mx-auto mt-20 w-fit">
         <CardContent className="px-10 py-4">
           <CardHeader>
-            <CardTitle className="font-headline text-center text-2xl font-bold tracking-tight text-foreground">
+            <CardTitle className="text-center font-headline text-2xl font-bold tracking-tight text-foreground">
               No secrets saved yet
             </CardTitle>
             <CardDescription className="text-center text-muted-foreground">

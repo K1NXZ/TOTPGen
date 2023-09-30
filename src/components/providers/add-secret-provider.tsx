@@ -20,3 +20,7 @@ export function AddSecretDialogProvider({
     </AddSecretDialogContext.Provider>
   )
 }
+
+export function useAddSecretDialog() {
+  return React.useContext(AddSecretDialogContext)
+}

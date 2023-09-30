@@ -1,9 +1,7 @@
-/** @format */
-
-import { AddSecretDialogProvider } from "@/contexts/AddSecretDialogContext"
 import { Eye, EyeOff, Plus } from "lucide-react"
 
 import { useSecretStore } from "@/lib/stores/secret.store"
+import { Button } from "@/components/ui/button"
 import { Toggle } from "@/components/ui/toggle"
 import {
   Tooltip,
@@ -11,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useAddSecretDialog } from "@/components/providers/add-secret-provider"
 import { AddSecretDialog } from "@/components/shared/add-secret-dialog"
 import { ThemeToggle } from "@/components/shared/theme-toggle"
 
@@ -20,12 +19,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     hideSecrets: state.hideSecrets,
   }))
 
+  const { setOpen } = useAddSecretDialog()
+
   return (
-    <AddSecretDialogProvider>
-      <header className="container mx-auto flex items-center justify-between py-4">
-        <span className="font-headline text-2xl font-bold tracking-tight">
-          {/* onetimecode.app */}
-        </span>
+    <>
+      <header className="container mx-auto flex items-center justify-end py-4">
         <div className="flex gap-2">
           <ThemeToggle />
           <TooltipProvider>
@@ -49,12 +47,13 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <AddSecretDialog>
+          <Button className="gap-2" onClick={() => setOpen(true)}>
             <Plus className="h-4 w-4" /> Add
-          </AddSecretDialog>
+          </Button>
         </div>
       </header>
       <main className="container mx-auto">{children}</main>
-    </AddSecretDialogProvider>
+      <AddSecretDialog />
+    </>
   )
 }

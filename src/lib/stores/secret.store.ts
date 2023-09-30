@@ -1,5 +1,3 @@
-/** @format */
-
 import { Secret as OTPAuthSecret } from "otpauth"
 import { create } from "zustand"
 import { devtools, persist } from "zustand/middleware"

@@ -1,8 +1,3 @@
-/** @format */
-
-import React from "react"
-
-import { useAddSecretDialog } from "@/hooks/useAddSecretDialog"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -10,30 +5,22 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { useAddSecretDialog } from "@/components/providers/add-secret-provider"
 import {
   EditSecretForm,
   editSecretFormId,
 } from "@/components/shared/forms/edit-secret-form"
 
-import { ScrollArea } from "../ui/scroll-area"
-
-export function AddSecretDialog({ children }: { children: React.ReactNode }) {
+export function AddSecretDialog() {
   const { isOpen, setOpen } = useAddSecretDialog()
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="gap-2">{children}</Button>
-      </DialogTrigger>
       <DialogContent className="max-h-screen shrink-0 px-0">
         <DialogHeader className="px-4">
           <DialogTitle>Add Secret</DialogTitle>
-          {/* <DialogDescription>
-						This action cannot be undone. This will permanently delete your
-						account and remove your data from our servers.
-					</DialogDescription> */}
         </DialogHeader>
         <ScrollArea className="h-full w-full shrink">
           <div className="p-4">
