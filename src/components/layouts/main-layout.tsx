@@ -28,7 +28,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <ThemeToggle />
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger asChild>
+              <TooltipTrigger>
                 <Toggle
                   variant="outline"
                   aria-label="Toggle Secrets"
@@ -36,9 +36,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   onPressedChange={() => toggleHideSecrets()}
                 >
                   {hideSecrets ? (
-                    <EyeOff className="h-4 w-4" />
+                    <EyeOff className="h-[1.2rem] w-[1.2rem]" />
                   ) : (
-                    <Eye className="h-4 w-4" />
+                    <Eye className="h-[1.2rem] w-[1.2rem]" />
                   )}
                 </Toggle>
               </TooltipTrigger>
