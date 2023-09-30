@@ -20,6 +20,26 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
+const disableAnimation = () => {
+  const css = document.createElement("style")
+  css.appendChild(
+    document.createTextNode(
+      `*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}`
+    )
+  )
+  document.head.appendChild(css)
+
+  return () => {
+    // Force restyle
+    ;(() => window.getComputedStyle(document.body))()
+
+    // Wait for next tick before removing
+    setTimeout(() => {
+      document.head.removeChild(css)
+    }, 1)
+  }
+}
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -31,6 +51,7 @@ export function ThemeProvider({
   )
 
   useEffect(() => {
+    const enable = disableAnimation()
     const root = window.document.documentElement
 
     root.classList.remove("light", "dark")
@@ -47,6 +68,7 @@ export function ThemeProvider({
     }
 
     root.classList.add(theme)
+    enable()
   }, [theme])
 
   const value = {
