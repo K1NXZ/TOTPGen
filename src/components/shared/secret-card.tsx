@@ -14,7 +14,7 @@ import { QRCodeSVG } from "qrcode.react"
 import { CircularProgressbar } from "react-circular-progressbar"
 
 import { useSecretStore, type Secret } from "@/lib/stores/secret.store"
-import { useTotp } from "@/hooks/useTotp"
+import { useTotp } from "@/hooks/use-totp"
 import { Button } from "@/components/ui/button"
 import {
   Card,
