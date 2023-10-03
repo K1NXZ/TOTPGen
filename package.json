@@ -1,8 +1,18 @@
 {
-	"name": "totp",
+	"name": "totpgen",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
+	"author": {
+		"name": "Angelo Walczak",
+		"email": "angelo.walczak@gmail.com",
+		"url": "https://github.com/K1NXZ"
+	},
+	"homepage": "https://totpgen.vercel.app",
+	"repository": {
+    "type": "git",
+    "url": "https://github.com/K1NXZ/totpgen.git"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -12,7 +22,6 @@
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.0.8",
-		"@fontsource-variable/montserrat": "^5.0.9",
 		"@fontsource-variable/roboto-mono": "^5.0.9",
 		"@hookform/resolvers": "^3.3.1",
 		"@radix-ui/react-dialog": "^1.0.5",
@@ -60,5 +69,6 @@
 		"tailwindcss": "^3.3.3",
 		"typescript": "^5.0.2",
 		"vite": "^4.4.5"
-	}
+	},
+	"license" : "MIT"
 }

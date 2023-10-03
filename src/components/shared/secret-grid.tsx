@@ -7,6 +7,7 @@ import {
   KeyRound,
   Link2,
   MoreHorizontal,
+  Plus,
   QrCode,
   Trash2,
 } from "lucide-react"
@@ -46,6 +47,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { toast } from "@/components/ui/use-toast"
+import { useAddSecretDialog } from "@/components/providers/add-secret-provider"
+
+export function SecretGrid({ secrets }: { secrets: Secret[] }) {
+  if (secrets.length === 0) {
+    return <EmptyGrid />
+  }
+
+  return (
+    <div className="grid grid-cols-1 gap-8 py-4 sm:grid-cols-2 md:py-8 lg:grid-cols-3 xl:grid-cols-4">
+      {secrets.map((secret) => (
+        <SecretCard key={secret.id} secret={secret} />
+      ))}
+    </div>
+  )
+}
 
 export function SecretCard({ secret }: { secret: Secret }) {
   const secretState = useSecretStore()
@@ -152,7 +168,7 @@ export function SecretCard({ secret }: { secret: Secret }) {
         <Card className="h-full rounded-md">
           <CardHeader className="flex flex-row items-start justify-between py-1 pl-4 pr-2.5">
             <div className="flex flex-col py-2">
-              <CardTitle className="font-headline text-lg font-semibold tracking-tight">
+              <CardTitle className="text-lg font-semibold tracking-tight">
                 {secret.options.issuer}
               </CardTitle>
               <CardDescription className="text-sm">
@@ -176,7 +192,7 @@ export function SecretCard({ secret }: { secret: Secret }) {
                   onSelect={() => setQrcodeOpen(true)}
                 >
                   <QrCode className="h-4 w-4" />
-                  QRCode
+                  Show QRCode
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
@@ -309,7 +325,7 @@ function CardSekeleton() {
       <Skeleton className="rounded-md border bg-transparent">
         <CardHeader className="flex flex-row items-start justify-between py-1 pl-4 pr-2.5">
           <div className="flex flex-col gap-1 py-2">
-            <CardTitle className="font-headline text-lg font-semibold tracking-tight">
+            <CardTitle className="text-lg font-semibold tracking-tight">
               <Skeleton className="h-3 w-24" />
             </CardTitle>
             <CardDescription className="text-sm">
@@ -325,6 +341,39 @@ function CardSekeleton() {
           <Skeleton className="h-8 w-8 rounded-full" />
         </CardFooter>
       </Skeleton>
+    </motion.div>
+  )
+}
+
+function EmptyGrid() {
+  const { setOpen } = useAddSecretDialog()
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Card className="mx-auto mt-20 w-fit">
+        <CardContent className="px-4 py-4 sm:px-10">
+          <CardHeader>
+            <CardTitle className="text-center text-2xl font-bold tracking-tight text-foreground">
+              No secrets added yet
+            </CardTitle>
+            <CardDescription className="text-center text-muted-foreground">
+              Add a new secret to get started.
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="justify-center">
+            <Button
+              variant="default"
+              className="gap-2"
+              onClick={() => setOpen(true)}
+            >
+              <Plus className="h-4 w-4" /> Add new secret
+            </Button>
+          </CardFooter>
+        </CardContent>
+      </Card>
     </motion.div>
   )
 }

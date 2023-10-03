@@ -40,14 +40,14 @@ const editSecretFormSchema = z.object({
   period: z.coerce.number(),
 })
 
-type EditSecretFormInput = z.infer<typeof editSecretFormSchema>
+type AddSecretFormInput = z.infer<typeof editSecretFormSchema>
 
-export const editSecretFormId = "edit-secret-form"
+export const AddSecretFormId = "edit-secret-form"
 
-export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
+export function AddSecretForm({ onFinish }: { onFinish: () => void }) {
   const { addSecret } = useSecretStore()
 
-  const form = useForm<EditSecretFormInput>({
+  const form = useForm<AddSecretFormInput>({
     resolver: zodResolver(editSecretFormSchema),
     defaultValues: {
       issuer: "",
@@ -59,7 +59,7 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
     },
   })
 
-  function onSubmit(input: EditSecretFormInput) {
+  function onSubmit(input: AddSecretFormInput) {
     addSecret({
       ...input,
     })
@@ -69,7 +69,7 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
   return (
     <Form {...form}>
       <form
-        id={editSecretFormId}
+        id={AddSecretFormId}
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
       >
@@ -82,6 +82,7 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
               <FormControl>
                 <Input
                   {...field}
+                  placeholder="NB2W45DFOIZA"
                   className="font-mono"
                   onBlur={(e) => {
                     field.onBlur()
@@ -106,6 +107,13 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                URI or
+                <span className="mx-1 rounded-sm bg-secondary px-1 py-0.5 font-mono text-sm">
+                  Base32
+                </span>
+                Encoded Secret.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -116,7 +124,7 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
           name="issuer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Issuer</FormLabel>
+              <FormLabel>Service</FormLabel>
               <FormControl>
                 <Input placeholder="ACME" {...field} />
               </FormControl>

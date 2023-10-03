@@ -9,9 +9,9 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useAddSecretDialog } from "@/components/providers/add-secret-provider"
 import {
-  EditSecretForm,
-  editSecretFormId,
-} from "@/components/shared/forms/edit-secret-form"
+  AddSecretForm,
+  AddSecretFormId,
+} from "@/components/shared/forms/add-secret-form"
 
 export function AddSecretDialog() {
   const { isOpen, setOpen } = useAddSecretDialog()
@@ -20,23 +20,23 @@ export function AddSecretDialog() {
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Secret</DialogTitle>
+          <DialogTitle>Add TOTP-Secret</DialogTitle>
         </DialogHeader>
         <ScrollArea className="h-full w-full shrink">
           <div className="p-4">
-            <EditSecretForm onFinish={() => setOpen(false)} />
+            <AddSecretForm onFinish={() => setOpen(false)} />
           </div>
         </ScrollArea>
         <DialogFooter className="shrink-0 px-4">
           <Button
             variant="ghost"
             type="button"
-            form={editSecretFormId}
+            form={AddSecretFormId}
             onClick={() => setOpen(false)}
           >
             Cancel
           </Button>
-          <Button type="submit" form={editSecretFormId}>
+          <Button type="submit" form={AddSecretFormId}>
             Save
           </Button>
         </DialogFooter>
