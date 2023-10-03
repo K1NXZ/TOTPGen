@@ -21,7 +21,6 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter Variable", ...fontFamily.sans],
-        headline: ["Montserrat Variable", ...fontFamily.sans],
         mono: ["Roboto Mono Variable", ...fontFamily.mono],
       },
       colors: {
