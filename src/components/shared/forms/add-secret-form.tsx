@@ -106,6 +106,12 @@ export function AddSecretForm({ onFinish }: { onFinish: () => void }) {
                   }}
                 />
               </FormControl>
+              <FormDescription>
+                <span className="rounded-sm bg-secondary px-1 py-0.5 font-mono">
+                  Base32
+                </span>{" "}
+                Encoded Secret
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -116,7 +122,7 @@ export function AddSecretForm({ onFinish }: { onFinish: () => void }) {
           name="issuer"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Issuer</FormLabel>
+              <FormLabel>Service</FormLabel>
               <FormControl>
                 <Input placeholder="ACME" {...field} />
               </FormControl>

@@ -192,7 +192,7 @@ export function SecretCard({ secret }: { secret: Secret }) {
                   onSelect={() => setQrcodeOpen(true)}
                 >
                   <QrCode className="h-4 w-4" />
-                  QRCode
+                  Show QRCode
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
