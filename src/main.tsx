@@ -3,7 +3,6 @@ import App from "@/app"
 import ReactDOM from "react-dom/client"
 
 import "@fontsource-variable/inter"
-import "@fontsource-variable/montserrat"
 import "@/globals.css"
 import "@fontsource-variable/roboto-mono"
 

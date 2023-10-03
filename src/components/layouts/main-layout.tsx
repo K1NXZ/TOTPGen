@@ -23,7 +23,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <header className="container mx-auto flex items-center justify-end py-4">
+      <header className="container mx-auto flex items-center justify-between py-4">
+        <div className="text-xl font-bold tracking-tight">TOTPGen</div>
         <div className="flex gap-2">
           <ThemeToggle />
           <TooltipProvider>
@@ -43,7 +44,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 </Toggle>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Toggle Secrets</p>
+                <p>Toggle token visibility</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
