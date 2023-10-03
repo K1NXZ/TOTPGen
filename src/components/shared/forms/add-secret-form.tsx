@@ -40,14 +40,14 @@ const editSecretFormSchema = z.object({
   period: z.coerce.number(),
 })
 
-type EditSecretFormInput = z.infer<typeof editSecretFormSchema>
+type AddSecretFormInput = z.infer<typeof editSecretFormSchema>
 
-export const editSecretFormId = "edit-secret-form"
+export const AddSecretFormId = "edit-secret-form"
 
-export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
+export function AddSecretForm({ onFinish }: { onFinish: () => void }) {
   const { addSecret } = useSecretStore()
 
-  const form = useForm<EditSecretFormInput>({
+  const form = useForm<AddSecretFormInput>({
     resolver: zodResolver(editSecretFormSchema),
     defaultValues: {
       issuer: "",
@@ -59,7 +59,7 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
     },
   })
 
-  function onSubmit(input: EditSecretFormInput) {
+  function onSubmit(input: AddSecretFormInput) {
     addSecret({
       ...input,
     })
@@ -69,7 +69,7 @@ export function EditSecretForm({ onFinish }: { onFinish: () => void }) {
   return (
     <Form {...form}>
       <form
-        id={editSecretFormId}
+        id={AddSecretFormId}
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
       >
