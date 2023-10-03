@@ -65,7 +65,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 </Toggle>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Toggle token visibility</p>
+                <p>Toggle visibility</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

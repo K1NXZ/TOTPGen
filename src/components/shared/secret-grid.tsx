@@ -354,10 +354,10 @@ function EmptyGrid() {
       exit={{ opacity: 0 }}
     >
       <Card className="mx-auto mt-20 w-fit">
-        <CardContent className="px-10 py-4">
+        <CardContent className="px-4 py-4 sm:px-10">
           <CardHeader>
             <CardTitle className="text-center text-2xl font-bold tracking-tight text-foreground">
-              No secrets saved yet
+              No secrets added yet
             </CardTitle>
             <CardDescription className="text-center text-muted-foreground">
               Add a new secret to get started.
@@ -365,11 +365,11 @@ function EmptyGrid() {
           </CardHeader>
           <CardFooter className="justify-center">
             <Button
-              variant="secondary"
+              variant="default"
               className="gap-2"
               onClick={() => setOpen(true)}
             >
-              <Plus className="h-4 w-4" /> Add
+              <Plus className="h-4 w-4" /> Add new secret
             </Button>
           </CardFooter>
         </CardContent>

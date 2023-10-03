@@ -82,6 +82,7 @@ export function AddSecretForm({ onFinish }: { onFinish: () => void }) {
               <FormControl>
                 <Input
                   {...field}
+                  placeholder="NB2W45DFOIZA"
                   className="font-mono"
                   onBlur={(e) => {
                     field.onBlur()
@@ -107,10 +108,11 @@ export function AddSecretForm({ onFinish }: { onFinish: () => void }) {
                 />
               </FormControl>
               <FormDescription>
-                <span className="rounded-sm bg-secondary px-1 py-0.5 font-mono">
+                URI or
+                <span className="mx-1 rounded-sm bg-secondary px-1 py-0.5 font-mono text-sm">
                   Base32
-                </span>{" "}
-                Encoded Secret
+                </span>
+                Encoded Secret.
               </FormDescription>
               <FormMessage />
             </FormItem>
