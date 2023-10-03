@@ -1,6 +1,6 @@
 # TOTPGen
 
-TOTPGen is a lightweight and open-source web tool designed specifically for development purposes. It allows developers to quickly save TOTP (Time-based One-Time Password) secrets locally. This tool simplifies the process of managing TOTP tokens during development and testing, ensuring ease and convenience for developers.
+TOTPGen is a lightweight and open-source web tool developed with [Vite](https://vitejs.dev/), [React](https://reactjs.org/), and [shadcn/ui](https://ui.shadcn.com/), designed specifically for developers. It enables developers to save TOTP (Time-based One-Time Password) secrets locally, simplifying the process of managing TOTP tokens during development and testing.
 
 ## Features
 
